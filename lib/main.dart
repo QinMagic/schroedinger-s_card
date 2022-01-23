@@ -1,20 +1,22 @@
+import 'dart:async';
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'performance_page.dart';
+import 'package:schroedinger_card/performance_page.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final cameras = await availableCameras();
+  final firstCamera = cameras.first;
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+  runApp(
+    MaterialApp(
+      theme: ThemeData.dark(),
+      home: PerformancePage(
+        camera: firstCamera,
       ),
-      home: PerformancePage(),
-    );
-  }
+    ),
+  );
 }
+
+
+
